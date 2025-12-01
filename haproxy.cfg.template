@@ -20,7 +20,7 @@ listen stats
 
 listen primary
     bind *:5000
-    option httpchk OPTIONS /primary
+    option httpchk GET /primary
     http-check expect status 200
     default-server inter 3s fall 3 rise 2
     server patroni1 ${PATRONI1_IP}:5432 maxconn 100 check port 8008
@@ -29,7 +29,7 @@ listen primary
 
 listen replicas
     bind *:5001
-    option httpchk OPTIONS /replica
+    option httpchk GET /replica
     http-check expect status 200
     default-server inter 3s fall 3 rise 2
     server patroni1 ${PATRONI1_IP}:5432 maxconn 100 check port 8008
@@ -38,7 +38,7 @@ listen replicas
 
 listen replicas_sync
     bind *:5002
-    option httpchk OPTIONS /sync
+    option httpchk GET /sync
     http-check expect status 200
     default-server inter 3s fall 3 rise 2
     server patroni1 ${PATRONI1_IP}:5432 maxconn 100 check port 8008
