@@ -1,0 +1,40 @@
+:5000 {
+    protocol tcp
+    
+    reverse_proxy {
+        to ${PATRONI1_IP}:5432
+        to ${PATRONI2_IP}:5432
+        to ${PATRONI3_IP}:5432
+        
+        health_checks {
+            transport http {
+                uri /primary
+                port 8008 # Check the Patroni API port
+                method GET
+            }
+            interval 5s
+            timeout 2s
+            expect status 200
+        }
+    }
+}
+
+:5001 {
+    protocol tcp
+    reverse_proxy {
+        to ${PATRONI1_IP}:5432
+        to ${PATRONI2_IP}:5432
+        to ${PATRONI3_IP}:5432
+        
+        health_checks {
+            transport http {
+                uri /replica
+                port 8008
+                method GET
+            }
+            interval 5s
+            timeout 2s
+            expect status 200
+        }
+    }
+}
