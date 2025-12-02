@@ -10,7 +10,6 @@ static_resources:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
                 stat_prefix: primary_tcp
                 cluster: primary_cluster
-
     - name: replicas_listener
       address:
         socket_address: { address: 0.0.0.0, port_value: 5001 }
@@ -21,7 +20,6 @@ static_resources:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
                 stat_prefix: replicas_tcp
                 cluster: replicas_cluster
-
   clusters:
     - name: primary_cluster
       type: STRICT_DNS
@@ -54,7 +52,6 @@ static_resources:
           http_health_check:
             path: "/primary"
           no_traffic_interval: 5s
-
     - name: replicas_cluster
       type: STRICT_DNS
       lb_policy: ROUND_ROBIN
@@ -86,7 +83,6 @@ static_resources:
           http_health_check:
             path: "/replica"
           no_traffic_interval: 5s
-
 admin:
   access_log_path: "/dev/null"
   address:
