@@ -25,6 +25,7 @@ static_resources:
       type: STRICT_DNS
       lb_policy: ROUND_ROBIN
       connect_timeout: 4s
+      dns_lookup_family: V4_PREFERRED
       load_assignment:
         cluster_name: primary_cluster
         endpoints:
@@ -52,10 +53,12 @@ static_resources:
           http_health_check:
             path: "/primary"
           always_log_health_check_failures: true
+          event_log_path: /dev/stdout
     - name: replicas_cluster
       type: STRICT_DNS
       lb_policy: ROUND_ROBIN
       connect_timeout: 4s
+      dns_lookup_family: V4_PREFERRED
       load_assignment:
         cluster_name: replicas_cluster
         endpoints:
@@ -83,6 +86,7 @@ static_resources:
           http_health_check:
             path: "/replica"
           always_log_health_check_failures: true
+          event_log_path: /dev/stdout
 admin:
   access_log_path: "/dev/null"
   address:
