@@ -1,5 +1,9 @@
 FROM envoyproxy/envoy:v1.33-latest
 
-COPY envoy.yaml /etc/envoy/envoy.yaml
+RUN apt-get update && apt-get install -y gettext-base && rm -rf /var/lib/apt/lists/*
 
-CMD ["envoy", "-c", "/etc/envoy/envoy.yaml", "--service-node", "envoy-patroni"]
+COPY envoy-template.yaml /etc/envoy/envoy-template.yaml
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
