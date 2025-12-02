@@ -1,0 +1,46 @@
+tcp:
+  routers:
+    primary-router:
+      entryPoints:
+        - "primary"
+      rule: "HostSNI(`*`)"
+      service: "primary-service"
+      
+    replicas-router:
+      entryPoints:
+        - "replicas"
+      rule: "HostSNI(`*`)"
+      service: "replicas-service"
+  
+  services:
+    primary-service:
+      loadBalancer:
+        method: roundRobin
+        servers:
+          - address: "${PATRONI1_IP}:5432"
+          - address: "${PATRONI2_IP}:5432"
+          - address: "${PATRONI3_IP}:5432"
+        healthCheck:
+          scheme: http
+          port: 8008
+          path: "/primary"
+          interval: "3s"
+          timeout: "2s"
+          unhealthyThreshold: 1
+          healthyThreshold: 1
+    
+    replicas-service:
+      loadBalancer:
+        method: roundRobin
+        servers:
+          - address: "${PATRONI1_IP}:5432"
+          - address: "${PATRONI2_IP}:5432"
+          - address: "${PATRONI3_IP}:5432"
+        healthCheck:
+          scheme: http
+          port: 8008
+          path: "/replica"
+          interval: "3s"
+          timeout: "2s"
+          unhealthyThreshold: 1
+          healthyThreshold: 1
