@@ -7,6 +7,6 @@ COPY dynamic_config.template.yml /etc/traefik/dynamic_config.template.yml
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 5000 5001 8080
+EXPOSE 5000 5001 7000
 
 ENTRYPOINT ["/entrypoint.sh"]
