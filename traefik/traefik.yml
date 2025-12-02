@@ -8,7 +8,7 @@ api:
 
 entryPoints:
   web:
-    address: ":8080"
+    address: ":7000"
   
   primary:
     address: ":5000"
