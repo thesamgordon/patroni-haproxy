@@ -1,14 +1,9 @@
-FROM haproxy:3.3-alpine
+FROM envoyproxy/envoy:v1.33-latest
 
-USER root
-RUN apk add --no-cache gettext
+RUN apt-get update && apt-get install -y gettext-base && rm -rf /var/lib/apt/lists/*
 
-COPY haproxy.cfg.template /usr/local/etc/haproxy/haproxy.cfg.template
-
+COPY envoy.template.yaml /etc/envoy/envoy.template.yaml
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-USER haproxy
-EXPOSE 5000 5001 5002 7000
 
 ENTRYPOINT ["/entrypoint.sh"]

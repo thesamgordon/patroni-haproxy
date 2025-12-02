@@ -1,5 +1,4 @@
 #!/bin/sh
 
-envsubst < /usr/local/etc/haproxy/haproxy.cfg.template > /usr/local/etc/haproxy/haproxy.cfg
-
-exec haproxy -f /usr/local/etc/haproxy/haproxy.cfg
+envsubst < /etc/envoy/envoy.template.yaml > /etc/envoy/envoy.yaml
+exec envoy -c /etc/envoy/envoy.yaml "$@"
