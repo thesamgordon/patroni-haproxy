@@ -2,12 +2,12 @@ FROM haproxy:2.9-alpine
 
 USER root
 RUN apk add --no-cache gettext
-USER haproxy
 
-COPY haproxy.template.cfg /usr/local/etc/haproxy/haproxy.template.cfg
+COPY haproxy.cfg.template /usr/local/etc/haproxy/haproxy.cfg.template
 COPY entrypoint.sh /entrypoint.sh
-
 RUN chmod +x /entrypoint.sh
+
+USER haproxy
 
 EXPOSE 5000 5001 7000
 
