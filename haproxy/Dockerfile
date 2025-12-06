@@ -1,9 +1,9 @@
-FROM haproxy:2.9-alpine
+FROM haproxy:3.0-alpine
 
 USER root
 RUN apk add --no-cache gettext
 
-COPY haproxy.template.cfg /usr/local/etc/haproxy/haproxy.template.cfg
+COPY haproxy.cfg.template /usr/local/etc/haproxy/haproxy.cfg.template
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
