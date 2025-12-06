@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [ -z "$PATRONI_HOST_1" ] || [ -z "$PATRONI_HOST_2" ] || [ -z "$PATRONI_HOST_3" ]; then
+if [ -z "$PATRONI1_IP" ] || [ -z "$PATRONI2_IP" ] || [ -z "$PATRONI3_IP" ]; then
     echo "Error: PATRONI1_IP, PATRONI2_IP, and PATRONI3_IP must be set"
     exit 1
 fi
